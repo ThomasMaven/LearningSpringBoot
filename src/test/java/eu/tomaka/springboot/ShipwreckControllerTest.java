@@ -1,6 +1,8 @@
 package eu.tomaka.springboot;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -38,6 +40,19 @@ public class ShipwreckControllerTest {
 		verify(shipwreckRepository).findOne(1L);
 
 		assertEquals(1L, wreck.getId().longValue());
+	}
+	
+	@Test
+	public void testShipwreckGet2() {
+		Shipwreck sw = new Shipwreck();
+		sw.setId(1L);
+		when(shipwreckRepository.findOne(1L)).thenReturn(sw);
+		
+		Shipwreck wreck = sc.get(1L);
+		
+		verify(shipwreckRepository).findOne(1L);
+		
+		assertThat(wreck.getId(), is(1L));
 	}
 
 	@Test
